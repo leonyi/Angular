@@ -13,14 +13,13 @@ export class AppComponent implements OnInit {
   subtitle_h1 = 'All the tasks';
   subtitle_h2 = 'The last task';
   tasks = [];
-  lastTask = {};
+  lastTask = '';
 
-  constructor(private _httpService: HttpService) {
-  }
+  constructor(private _httpService: HttpService) { }
 
-  // This gets run, right after the constructor.
-  // Anything we want the component to get done is added here.
-  ngOnInit() {
+  ngOnInit() { }
+
+  onClickMe() {
     this.getTasksFromService();
   }
 

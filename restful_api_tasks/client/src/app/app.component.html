@@ -1,18 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="container">
-  <div class="jumbotron" style="text-align: center">
-    <h2> {{ title }}</h2>
-  </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading"> {{ subtitle_h1 }}: </div>
+<div class="jumbotron">
+    <h2 class="display-3"> {{ title }} </h2>
+    <p class="lead">Welcome to Restful Tasks Interactive.</p>
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button" (click)=onClickMe()>Click to get all tasks</a>
+    </p>
     <div class="panel-body">
-      <p *ngFor="let task of tasks">{{ task.title }} - {{ task.description }}</p>
+      <ul *ngFor="let task of tasks">
+        <li>{{ task.title }} - {{ task.description }} </li>
+      </ul>
     </div>
-  </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading"> {{ subtitle_h2}}: </div> 
+    <hr>
     <div class="panel-body">
-      <p>{{ lastTask.title }} - {{ lastTask.description }}</p>
+        <p> Click the button or press enter to get the task.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Click to get one task</a>
+        <app-key-up></app-key-up>
     </div>
-  </div>
 </div>
