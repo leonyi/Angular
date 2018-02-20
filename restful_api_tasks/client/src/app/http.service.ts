@@ -4,34 +4,36 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class HttpService {
   constructor(private _http: HttpClient) {
-    // this.getTasks();
-    // this.getTaskbyId();
-    // this.deleteTaskbyId();
-    // this.getPokemon();
   }
 
   getTasks() {
     // Our http response is an Observable, return it so the app.component,
     // can receive it and subscribe to it to get the data it needs from this
     // http request.
-    return this._http.get('/api/tasks');
+    // return this._http.get('/api/tasks');
+    return this._http.get('/api/tasks', {observe: 'body', responseType: 'json'});
     // subscribe to the Observable and provide the code we would like to do with our data from the response
     // tempObservable.subscribe(data => console.log('Got our tasks!', data));
   }
 
-  // getTaskbyId() {
-  //   const tempObservable = this._http.get('/api/tasks/5a85103b1ed01d08f162c22d');
-  //   tempObservable.subscribe(data => console.log('Got info for requested task: ', data));
-  // }
+  getTaskbyId(_id) {
+    return this._http.get(`/api/tasks/${_id}`);
+  }
 
-  // deleteTaskbyId() {
-  //   const tempObservable = this._http.delete('/api/tasks/5a8668a66a869f53fa19a1da');
-  //   tempObservable.subscribe(data => console.log('Deleted requested task!', data));
-  // }
+  storeTask(task) {
+    // This returs the observable.  It doesn't make a request until we subscribe.
+    return this._http.post('/api/tasks', task);
 
-  // getPokemon() {
-  //   const bulbasaur = this._http.get('https://pokeapi.co/api/v2/pokemon/1/');
-  //   bulbasaur.subscribe(data => console.log('Got bulbasaur from pokeapi: ', data));
-  // }
+  }
+
+  deleteTaskbyId(_id) {
+    return this._http.delete(`/api/tasks/${_id}`);
+  }
+
+  editTask(task, _id) {
+    console.log('Task received to edit: ', task);
+    console.log('Task ID: : ', _id);
+    return this._http.put(`/api/tasks/${_id}`, task);
+  }
 
 }

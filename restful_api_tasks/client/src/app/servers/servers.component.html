@@ -1,2 +1,14 @@
-<h3> Single Task Component </h3>
-<div class="app-server"></div>
+<div class="panel-body">
+    <h3>Task List</h3>
+    <ul *ngFor="let task of tasks">
+        <li style="list-style: none">
+          <div class="panel-body">
+              <p style="font-weight: bold"> {{ task.title }}</p>
+              <p> {{ task.description }} </p>
+              <button type="button" class="btn btn-outline-primary" (click)="onEdit(task._id)">Edit</button>
+              <button type="button" class="btn btn-outline-danger" (click)="onDelete(task._id)">Delete</button>
+              </div>
+        </li>
+        <hr>
+    </ul>
+</div>

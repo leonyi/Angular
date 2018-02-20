@@ -3,17 +3,12 @@
     <h2 class="display-3"> {{ title }} </h2>
     <p class="lead">Welcome to Restful Tasks Interactive.</p>
     <hr class="my-4">
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button" (click)=onClickMe()>Click to get all tasks</a>
-    </p>
-    <div class="panel-body">
-      <ul *ngFor="let task of tasks">
-        <li>{{ task.title }} - {{ task.description }} </li>
-      </ul>
-    </div>
+    <app-server></app-server>
+    <hr>
+    <app-servers></app-servers>
     <hr>
     <div class="panel-body">
-        <p> Click the button or press enter to get the task.</p>
+        <p> Click the button or press enter to get a single task.</p>
         <a class="btn btn-primary btn-lg" href="#" role="button">Click to get one task</a>
         <app-key-up></app-key-up>
     </div>
