@@ -12,8 +12,8 @@ import { HttpService } from '../http.service';
             <p style="font-weight: bold"> {{ task.title }}</p>
             <p> {{ task.description }} </p>
             <button type="button" class="btn btn-outline-danger" (click)="onDelete(task._id)">Delete</button>
-            <button type="button" class="btn btn-outline-info" (click)="setEditOn()">Edit</button>
-            <form *ngIf="editTask"(submit)="onEdit(task, task._id)">
+            <button type="button" class="btn btn-outline-info" (click)="setEditOn(task._id)">Edit</button>
+            <form *ngIf="editTask" (submit)="onEdit(task, task._id)">
               <h3>Edit a Task</h3>
               <p>Title: </p>
               <input type="text" name="task.title" [(ngModel)] = "task.title">
@@ -31,6 +31,7 @@ import { HttpService } from '../http.service';
 
 export class ServersComponent implements OnInit {
   editTask = false;
+  currentTask = '';
   tasks = [];
   lastTask = '';
   task: any;
@@ -40,17 +41,20 @@ export class ServersComponent implements OnInit {
 
   ngOnInit() {
     this.getTasksFromService();
-    this.tasktoEdit = {title: `${this.task.title}`, description: `${this.task.description}`};
   }
 
-  setEditOn() {
+  setEditOn(_id) {
+    console.log(_id);
+    // if ( _id === this.task._id) { this.editTask = true; }
     this.editTask = true;
   }
 
   onEdit(task, _id) {
+    this.tasktoEdit = task;
     console.log(_id);
     const observable = this._httpService.editTask(this.tasktoEdit, _id);
     observable.subscribe(data => console.log('Edited task: ', data));
+    this.editTask = false;
   }
 
   onDelete(_id) {
@@ -70,4 +74,3 @@ export class ServersComponent implements OnInit {
   }
 
 }
-iter
