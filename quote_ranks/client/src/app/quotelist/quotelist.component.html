@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div style="display:flex; justify-content:space-between">
+      <a routerLink="/">Home</a>
+      <a [routerLink]="['/quote', params.id]" routerLinkActive="active">Add a quote</a>
+    </div>
+    <hr>
+    <p class="lead">Quotes by {{ author }}:</p>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Quote</th>
+            <th>Votes</th>
+            <th>Actions Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of quotes">
+            <td>{{ entry.quote }}</td>
+            <td>{{ entry.rank }}</td>
+            <td>
+              <button class="btn btn-default" type="button">Vote up</button>
+              <button class="btn btn-default" type="button">Vote down</button>
+              <button class="btn btn-default" type="button">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

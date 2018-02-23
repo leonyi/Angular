@@ -1,0 +1,26 @@
+<div class="container">
+
+  <a routerLink="/author">Add a quotable author</a>
+  <hr>
+  <p class="lead">We have quotes by:</p>
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Actions Available</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of records">
+          <td>{{ record.author }} - {{ record._id }}</td>
+          <td>
+            <a [routerLink]="['/quotelist', record._id]" routerLinkActive="active">
+              <button class="btn btn-default" type="button">View Quotes</button>
+            </a>
+            <button class="btn btn-default" type="button">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>

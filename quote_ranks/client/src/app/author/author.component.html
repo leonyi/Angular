@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <a routerLink="/">Home</a>
+        <hr>
+        <p class="lead">Add a new quotable author:</p>
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+          <div id="user-data"
+               ngModelGroup="userData"
+               #userData="ngModelGroup">
+            <div class="form-group">
+              <label for="username">Name:</label>
+              <input 
+                type="text" 
+                id="username" 
+                class="form-control" 
+                ngModel 
+                name="username"
+                required>
+            </div>
+            <a routerLink="/" routerLinkActive="active">
+              <button class="btn btn-default" type="button">Cancel</button>
+            </a>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+          <p *ngIf="!userData.valid && userData.touched">Data is invalid!</p>
+        </form>
+      </div>
+    </div>
+</div>
