@@ -17,7 +17,9 @@
             <a [routerLink]="['/quotelist', record._id]" routerLinkActive="active">
               <button class="btn btn-default" type="button">View Quotes</button>
             </a>
-            <button class="btn btn-default" type="button">Edit</button>
+            <a [routerLink]="['/editauthor', record._id]" routerLinkActive="active">
+              <button class="btn btn-default" type="button">Edit</button>
+            </a>
           </td>
         </tr>
       </tbody>

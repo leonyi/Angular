@@ -15,13 +15,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let entry of quotes">
+          <tr *ngFor="let entry of quotes; let i = index" [attr.data.index]="i">
             <td>{{ entry.quote }}</td>
             <td>{{ entry.rank }}</td>
             <td>
-              <button class="btn btn-default" type="button">Vote up</button>
-              <button class="btn btn-default" type="button">Vote down</button>
-              <button class="btn btn-default" type="button">Delete</button>
+              <button class="btn btn-default" type="button" (click)="voteupQuote(entry, i)">Vote up</button>
+              <button class="btn btn-default" type="button" (click)="votedownQuote(entry, i)">Vote down</button>
+              <button class="btn btn-default" type="button" (click)="deleteQuote(i)">Delete</button>
             </td>
           </tr>
         </tbody>

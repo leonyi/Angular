@@ -37,4 +37,52 @@ export class QuotelistComponent implements OnInit {
     });
   }
 
+  deleteQuote(index) {
+    console.log(`Deleting quote at index ${index} from record ${this.params.id}`);
+    const observable = this._httpService.deleteQuote(this.params.id, index);
+    observable.subscribe(
+      data => {
+        console.log('Request to delete quote from record sent and received: ', data);
+        this.getQuoterankRecord();
+      },
+      error => {
+        // Error handling here.
+        console.log('Error handling delete request!');
+      }
+    );
+  }
+
+  voteupQuote(record, index) {
+    record.index = index;
+    console.log(`Increasing vote for ${record.quote} at index ${record.index}`);
+    const observable = this._httpService.upvoteQuote(this.params.id, record);
+    observable.subscribe(
+      data => {
+        console.log('Request to up vote for quote sent and received: ', data);
+        this.getQuoterankRecord();
+      },
+      error => {
+        // Error handling here
+        console.log('Error processing your request to upvote!');
+      }
+    );
+  }
+
+  votedownQuote(record, index) {
+    record.index = index;
+    console.log(`Increasing vote for ${record.quote} at index ${record.index}`);
+    const observable = this._httpService.downvoteQuote(this.params.id, record);
+    observable.subscribe(
+      data => {
+        console.log('Request to down-vote for quote was sent and received: ', data);
+        this.getQuoterankRecord();
+      },
+      error => {
+        // Error handling here
+        console.log('Error processing your request to downvote');
+      }
+    );
+  }
+
 }
+

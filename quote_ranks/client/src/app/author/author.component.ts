@@ -1,4 +1,3 @@
-import { browser } from 'protractor';
 import { HttpService } from './../http.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';

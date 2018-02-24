@@ -14,7 +14,8 @@ export class QuoteComponent implements OnInit {
     quotecontent: ''
   };
   submitted = false;
-
+  record: any;
+  author: string;
   params: any;
 
   constructor(
@@ -25,6 +26,17 @@ export class QuoteComponent implements OnInit {
   ) { this.route.params.subscribe( params => this.params = params); }
 
   ngOnInit() {
+    this.fetchAuthor();
+  }
+
+  fetchAuthor() {
+    const observable = this._httpService.getRecordbyId(this.params.id);
+    observable.subscribe(data => {
+      console.log('Got data: ', data);
+      this.record = data['data'];
+      this.author = this.record[0].author;
+      console.log('Got author\'s quotes: ', this.record[0].quotes);
+    });
   }
 
   onSubmit() {
@@ -34,7 +46,7 @@ export class QuoteComponent implements OnInit {
     console.log('This is the new quote content: ', this.quote.quotecontent);
 
     // Send a put request to the backend to update the record.
-    const observable = this._httpService.editRecord(this.params.id, this.quote);
+    const observable = this._httpService.addQuote(this.params.id, this.quote);
     observable.subscribe(data => {
       console.log('Data sent to PUT and recieved response: ', data);
       this.router.navigate(['/quotelist', this.params.id]);
@@ -42,6 +54,12 @@ export class QuoteComponent implements OnInit {
 
     this.submitted = true;
     this.signupForm.reset();
+    this.backtoMyQuotes();
+  }
+
+  backtoMyQuotes() {
+    this.router.navigate([`/quotelist/${this.params.id}`]);
+
   }
 
   onCancel() {

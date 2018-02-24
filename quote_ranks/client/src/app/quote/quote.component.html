@@ -3,7 +3,7 @@
        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <a routerLink="/">Home</a>
         <hr>
-        <p class="lead">Provide a quote by author:</p>
+        <p class="lead">Provide a quote by {{ author }}:</p>
         <form (ngSubmit)="onSubmit()" #f="ngForm">
           <div id="quote-data"
                ngModelGroup="quoteData"

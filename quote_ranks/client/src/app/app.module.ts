@@ -11,6 +11,8 @@ import { QuoteranksComponent } from './quoteranks/quoteranks.component';
 import { AuthorComponent } from './author/author.component';
 import { QuoteComponent } from './quote/quote.component';
 import { QuotelistComponent } from './quotelist/quotelist.component';
+import { EditquoteComponent } from './editquote/editquote.component';
+import { EditauthorComponent } from './editauthor/editauthor.component';
 
 // Decorator
 @NgModule({
@@ -19,7 +21,9 @@ import { QuotelistComponent } from './quotelist/quotelist.component';
     QuoteranksComponent,
     AuthorComponent,
     QuoteComponent,
-    QuotelistComponent
+    QuotelistComponent,
+    EditquoteComponent,
+    EditauthorComponent
   ],
   imports: [
     BrowserModule,

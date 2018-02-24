@@ -44,10 +44,10 @@ module.exports = {
 		})
 	},
 
-	// Find the entry with this id (accessed at PUT http://localhost:8020/quotes/:quote_id)	
+	// Find the entry with this id (accessed at PUT http://localhost:8020/quotes/:id)	
 	getone: function(req, res) {
-		// Quote.findById(req.params.quote_id, function(err, quote) {
-		Quote.find({ _id: req.params.quote_id }, function(err, quote) {
+		// Quote.findById(req.params.id, function(err, quote) {
+		Quote.find({ _id: req.params.id }, function(err, quote) {
 			if (err) {
 				console.log("Error retrieving requested entry: ", err)
 				res.json({message: "Error retrieving requested entry!"})
@@ -64,7 +64,7 @@ module.exports = {
 		var data = {};
 		data.author = req.body.author;
 
-		Quote.update({_id: req.params.quote_id}, data, function(err, quote) {
+		Quote.update({_id: req.params.id}, data, function(err, quote) {
 			if(err){
 				console.log("Error attempting to save changes to entry!")
 				res.json({ message: "Errors attempting to update entry!"})
@@ -82,28 +82,99 @@ module.exports = {
 			quote: req.body.quotecontent, 
 			rank: 0
 		}
-		Quote.update({_id: req.params.quote_id}, { $push: { quotes: data }}, function(err, quote) {
+		Quote.findOneAndUpdate({_id: req.params.id}, { $push: { quotes: data }}, function(err, quote) {
 			if(err){
-				console.log("Error attempting to update quotes array with record id: ", req.params.quote_id)
+				console.log("Error attempting to update quotes array with record id: ", req.params.id)
 				res.json({ message: "Errors attempting to update entry!"})
 			} else {
 				console.log("Entry updated Successfully!", quote)
-				res.json({ message: "Entry updated!"});	
+				res.json({ message: "Entry updated!", quotes: quote});	
 			}
 		})
 
 	},
 
-    // Delete the entry with this id (accessed at DELETE http://localhost:8030/quotes/:quote_id)
-	delete: function(req, res) {
-		Quote.findByIdAndRemove(req.params.quote_id, function(err, quote) {
+    // Delete the entry with this id (accessed at DELETE http://localhost:8030/quotes/:id)
+	deleteone: function(req, res) {
+		Quote.findByIdAndRemove(req.params.id, function(err, quote) {
 			if (err) {
-				console.log("Error attempting to delete requested record: ", req.params.quote_id )
-				res.send(err);
+				console.log("Error attempting to delete requested record: ", req.params.id )
+				res.json(err);
 			} else {
-				console.log("Successfully removed record: ", req.params.quote_id);
+				console.log("Successfully removed record: ", req.params.id);
 				res.json({message: 'Successfully deleted.'})
 			}
 		});
-	}
+	},
+
+    // Delete element from array within record (accessed at DELETE http://localhost:8030/quotes/:id/:index)
+	delete: function(req, res) {
+		Quote.findById(req.params.id, function(err, quote) {
+			if (err) {
+				console.log("Error attempting to delete requested record: ", req.params.id )
+				res.json(err);
+			} else {
+				const quoteList = quote.quotes;
+				console.log("quotes.js controller: quoteList is ", quoteList);
+				// Splice removes the number of elements specified at the given index location. 
+				// So, we update the current quoteList and then update the entry on the DB.
+				quoteList.splice(req.params.index, 1); 
+				quote.update( {$set: {quotes: quoteList}}, function(err, quote) {
+					if(err) {
+						console.log('Error updating record after quote removal: ', req.params.id);
+						res.json({err})
+					} else {
+						console.log("Successfully removed quote from record: ", req.params.id);
+						res.json({message: 'Successfully deleted quote from record.'})
+					}
+				})
+			}
+		});
+	},
+
+	// upVote quote rank on record.
+	putupvote: function(req, res) {
+		Quote.findById(req.params.id, function(err,quote) {
+			if (err) {
+				console.log("Error attempting to locate requested record: ", req.params.id);
+				res.json(err)
+			} else {
+				const quoteList = quote.quotes; 
+				console.log("Current quote list is: ", quoteList);
+				quoteList[req.body.index].rank += 1;
+				quote.update( {$set: {quotes: quoteList }}, function(err, quote) {
+					if(err) {
+						console.log(`Error increasing vote for ${req.params.id} at index ${req.body.index}`);
+					} else {
+						console.log("Successfully updated rank for quote: ", req.params.id);
+						res.json({message: 'Successfully updated record with new rank.'})
+					}
+				})
+			}
+
+		});
+	},
+
+	// downVote quote rank on record.
+	putdownvote: function(req, res) {
+		Quote.findById(req.params.id, function(err,quote) {
+			if (err) {
+				console.log("Error attempting to locate requested record: ", req.params.id);
+				res.json(err)
+			} else {
+				const quoteList = quote.quotes; 
+				console.log("Current quote list is: ", quoteList);
+				quoteList[req.body.index].rank -= 1;
+				quote.update( {$set: {quotes: quoteList }}, function(err, quote) {
+					if(err) {
+						console.log(`Error lowering rank for ${req.params.id} at index ${req.body.index}`);
+					} else {
+						console.log("Successfully updated rank for quote: ", req.params.id);
+						res.json({message: 'Successfully updated record with new rank.'})
+					}
+				})
+			}
+
+		});
+	} 
 }
