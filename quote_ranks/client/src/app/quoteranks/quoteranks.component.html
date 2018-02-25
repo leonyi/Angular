@@ -20,6 +20,7 @@
             <a [routerLink]="['/editauthor', record._id]" routerLinkActive="active">
               <button class="btn btn-default" type="button">Edit</button>
             </a>
+            <button class="btn btn-default" type="button" (click)="deleteAuthor(record)">Delete</button>
           </td>
         </tr>
       </tbody>

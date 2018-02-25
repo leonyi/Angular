@@ -83,6 +83,5 @@ export class QuotelistComponent implements OnInit {
       }
     );
   }
-
 }
 

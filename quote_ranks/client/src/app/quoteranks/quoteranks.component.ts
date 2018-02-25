@@ -24,4 +24,18 @@ export class QuoteranksComponent implements OnInit {
     });
   }
 
+  deleteAuthor(record) {
+    console.log('Removing requested record: ', record._id);
+    const observable = this._httpService.deleteRecordbyId(record._id);
+    observable.subscribe(
+      data => {
+        console.log('Sent request to remove record and recieved response: ', data);
+        this.getEntriesFromService();
+      },
+      error => {
+        // Error handling to the UI.
+        console.log('Error processing request to remove author!');
+      }
+    );
+  }
 }

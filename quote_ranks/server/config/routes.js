@@ -53,7 +53,7 @@ module.exports = function(app){
 
 	// Delete requests (accessed at DELETE http://localhost:8020/quotes/:id)
 	app.delete('/quotes/:id', function(req, res) {
-		quotes.delete(req, res);
+		quotes.deleteone(req, res);
 	});
 
 	// Route to remove entry from quotes 
