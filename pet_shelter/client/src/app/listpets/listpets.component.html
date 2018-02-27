@@ -1,0 +1,30 @@
+<div class="container">
+
+  <a routerLink="/addpet">Add a pet to the shelter</a>
+  <hr>
+  <p class="lead">These pets are looking for a home!</p>
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of records">
+          <td>{{ record.name }}</td>
+          <td>{{ record.type }}</td>
+          <td>
+            <a [routerLink]="['/petdetails', record._id]" routerLinkActive="active">
+              <button class="btn btn-default" type="button">Details</button>
+            </a>
+            <a [routerLink]="['/editpet', record._id]" routerLinkActive="active">
+              <button class="btn btn-default" type="button">Edit</button>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>

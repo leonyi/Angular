@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <a routerLink="/">Home</a>
+      <hr>
+      <p class="lead">Know of a pet that needs a home?</p>
+      <p *ngIf="errorMessage" style="color:red; font-weight:bold">{{ errorMessage }}</p>
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="user-data"
+             ngModelGroup="userData"
+             #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username"> Pet Name:</label>
+            <input 
+              type="text" 
+              id="name" 
+              class="form-control" 
+              ngModel 
+              name="name"
+              required>
+
+            <label for="username"> Pet Type:</label>
+            <input 
+              type="text" 
+              id="type" 
+              class="form-control" 
+              ngModel 
+              name="type"
+              required>
+
+              <label for="username"> Description:</label>
+              <input 
+                type="text" 
+                id="description" 
+                class="form-control" 
+                ngModel 
+                name="description"
+                required>
+
+              <h5 for="skills"> Skills:</h5>
+
+              <label for="skill1"> Skill 1:</label>
+              <input 
+                type="text" 
+                id="skill1" 
+                class="form-control" 
+                ngModel 
+                name="skill1">
+
+              <label for="skill2"> Skill 2:</label>
+              <input 
+                type="text" 
+                id="skill2" 
+                class="form-control" 
+                ngModel 
+                name="skill2">
+
+              <label for="skill3"> Skill 3:</label>
+              <input 
+                type="text" 
+                id="skill3" 
+                class="form-control" 
+                ngModel 
+                name="skill3">
+
+          </div>
+          <a routerLink="/" routerLinkActive="active">
+            <button class="btn btn-default" type="button">Cancel</button>
+          </a>
+          <button class="btn btn-primary" type="submit">Add Pet</button>
+        </div>
+        <p *ngIf="!userData.valid && userData.touched">Data is invalid!</p>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div style="display:flex; justify-content:space-between">
+      <a routerLink="/">Home</a>
+    </div>
+    <hr>
+    <div>
+    <p class="lead">Details about {{ pet_name }}:</p>
+      <p>Pet type: {{ pet_type }}</p>
+      <p>Description: {{ pet_description }}</p>
+      <p>Skills: </p>
+      <ul style="list-style-type: none"  *ngFor="let entry of skills">
+        <li> {{ entry.skill }}</li>
+      </ul>
+      <p>Likes: {{ pet_likes }}</p>
+      <button class="btn btn-default" type="button" (click)="likePet(pet._id)">Like this pet</button>
+      <button class="btn btn-default" type="button" (click)="deletePet(pet._id)">Adopt this pet!</button>
+    </div>
+  </div>
+</div>
